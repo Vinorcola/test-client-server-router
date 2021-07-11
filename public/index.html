@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>Loading...</title>
+    </head>
+    <body>
+        <div id="app"></div>
+
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <script crossorigin src='https://unpkg.com/react-router-dom@5/umd/react-router-dom.min.js'></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel">
+
+            let { BrowserRouter, Link, Route, Switch } = ReactRouterDOM
+
+            ReactDOM.render(
+                <App />,
+                document.getElementById("app"),
+            )
+
+            function App() {
+                return (
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path="/page-a">
+                                <ExternalPage />
+                            </Route>
+                            <Route path="/page-b">
+                                <ExternalPage />
+                            </Route>
+                            <Route path="/page-c">
+                                <PageC />
+                            </Route>
+                            <Route path="/page-d">
+                                <PageD />
+                            </Route>
+                            <Route>
+                                <NotFoundPage />
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                )
+            }
+
+            function PageC() {
+                React.useEffect(() => {
+                    document.title = "Page C (Client)"
+                })
+
+                return (
+                    <main>
+                        <h1>Page C (Client)</h1>
+
+                        <ul>
+                            <li><Link to="/page-a">Page A (Server)</Link></li>
+                            <li><Link to="/page-b">Page B (Server)</Link></li>
+                            <li><Link to="/page-c">Page C (Client)</Link></li>
+                            <li><Link to="/page-d">Page D (Client)</Link></li>
+                        </ul>
+                    </main>
+                )
+            }
+
+            function PageD() {
+                React.useEffect(() => {
+                    document.title = "Page D (Client)"
+                })
+
+                return (
+                    <main>
+                        <h1>Page D (Client)</h1>
+
+                        <ul>
+                            <li><Link to="/page-a">Page A (Server)</Link></li>
+                            <li><Link to="/page-b">Page B (Server)</Link></li>
+                            <li><Link to="/page-c">Page C (Client)</Link></li>
+                            <li><Link to="/page-d">Page D (Client)</Link></li>
+                        </ul>
+                    </main>
+                )
+            }
+
+            function ExternalPage() {
+                React.useEffect(() => {
+                    document.title = "Loading..."
+                    window.location.reload()
+                })
+
+                return (
+                    <main>
+                        <h1>Loading...</h1>
+                    </main>
+                )
+            }
+
+            function NotFoundPage() {
+                React.useEffect(() => {
+                    document.title = "Page not found"
+                })
+
+                return (
+                    <main>
+                        <h1>Page not found</h1>
+                    </main>
+                )
+            }
+
+        </script>
+    </body>
+</html>
